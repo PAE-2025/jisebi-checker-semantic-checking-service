@@ -7,14 +7,14 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from config import SCOPUS_API_KEY
+from src.config import settings
 from bs4 import BeautifulSoup
 
 
 class ScopusSearch:
     def __init__(self, query):
         self.query = query
-        self.client = ElsClient(SCOPUS_API_KEY)
+        self.client = ElsClient(settings.SCOPUS_API_KEY)
 
         # Inisialisasi WebDriver hanya sekali
         chrome_options = Options()
