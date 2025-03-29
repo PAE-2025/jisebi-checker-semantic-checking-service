@@ -1,5 +1,5 @@
 from fastapi import FastAPI, UploadFile, File
-from process import process_data, keywords_check, abstract_sentences
+from process import process_data, keywords_check, abstract_sentences, extract_common_keywords
 import pandas as pd
 import io
 from pydantic import BaseModel
@@ -36,11 +36,15 @@ async def input_article(article: ArticleInput):
         for label, sentences in label_sentences.items()
     ]
 
+    # Mengekstrak kata kunci umum dari abstrak dengan common keyword extractor
+    common_keywords = extract_common_keywords(article.abstract, " ".join(label_sentences["Background"] + label_sentences["Objective"] + label_sentences["Methods"] + label_sentences["Results"] + label_sentences["Conclusions"]))
+
     # Respons JSON
     response = {
         "title": article.title,
         "keyword_results": keyword_results,
         "nlp_result": results,
+        "common_keywords": common_keywords,
     }
     if word_count_result:  # Jika ada pesan peringatan tentang jumlah kata
         response["word_count_warning"] = word_count_result
@@ -78,11 +82,15 @@ async def upload_csv(file: UploadFile = File(...)):
             for label, sentences in label_sentences.items()
         ]
 
+        # Mengekstrak kata kunci umum dari abstrak dengan common keyword extractor
+        common_keywords = extract_common_keywords(abstract, " ".join(label_sentences["Background"] + label_sentences["Objective"] + label_sentences["Methods"] + label_sentences["Results"] + label_sentences["Conclusions"]))
+
         # Buat respons untuk artikel ini
         article_response = {
             "title": title,
             "nlp_result": result,
             "keyword_results": keyword_results,
+            "common_keywords": common_keywords,
         }
         if word_count_result:
             article_response["word_count_warning"] = word_count_result
