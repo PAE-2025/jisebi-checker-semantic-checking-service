@@ -1,5 +1,5 @@
 from fastapi import FastAPI, UploadFile, File
-from process import process_data, keywords_check, abstract_sentences, extract_common_keywords
+from src.ml.process import process_data, keywords_check, abstract_sentences, extract_common_keywords  # Perbarui impor
 import pandas as pd
 import io
 from pydantic import BaseModel

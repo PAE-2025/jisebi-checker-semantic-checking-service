@@ -21,10 +21,10 @@ nltk.download("punkt")
 nltk.download("stopwords")
 
 # Path ke file data pelatihan dan model
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-file_path = os.path.join(BASE_DIR, "new_dt2.csv")
-model_path = os.path.join(BASE_DIR, "voting_classifier.joblib")
-vectorizer_path = os.path.join(BASE_DIR, "tfidf_vectorizer.joblib")
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+file_path = os.path.join(BASE_DIR, "data", "new_dt2.csv")
+model_path = os.path.join(os.path.dirname(__file__), "voting_classifier.joblib")
+vectorizer_path = os.path.join(os.path.dirname(__file__), "tfidf_vectorizer.joblib")
 
 # Load and preprocess data
 data = pd.read_csv(file_path)
