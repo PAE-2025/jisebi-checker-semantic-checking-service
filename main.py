@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from routers import search, ner
 from src.discon_analyzer.router import router as discon_analyzer_router
+from src.ner.router import router as ner_router
 
 
 app = FastAPI(title="Journal Search API", description="Find similar journals using Scopus API")
@@ -8,7 +9,7 @@ app = FastAPI(title="Journal Search API", description="Find similar journals usi
 # Register Routers
 app.include_router(search.router, prefix="/api", tags=["Search"])
 app.include_router(discon_analyzer_router)
-app.include_router(ner.router, prefix="/api", tags=["NER"])
+app.include_router(ner_router, prefix="/api")
 
 @app.get("/")
 async def root():
