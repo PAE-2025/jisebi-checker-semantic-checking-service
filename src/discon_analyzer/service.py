@@ -7,7 +7,13 @@ from src.discon_analyzer.constants import (
     CONCLUSION_CONTRIBUTION_KEYWORDS,
     CITATION_PATTERNS,
     CONTRIBUTION_VERBS,
-    COMPARISON_VERBS
+    COMPARISON_VERBS,
+    RESEARCH_TERMS,
+    OWNERSHIP_TERMS,
+    COMPARISON_PREPOSITIONS,
+    COMPARISON_REFERENCE_TERMS,
+    LITERATURE_TERMS,
+    CONTRIBUTION_TERMS
 )
 from src.config import settings
 
@@ -29,6 +35,12 @@ class AnalyzerService:
         self.citation_patterns = CITATION_PATTERNS
         self.contribution_verbs = CONTRIBUTION_VERBS
         self.comparison_verbs = COMPARISON_VERBS
+        self.research_terms = RESEARCH_TERMS
+        self.ownership_terms = OWNERSHIP_TERMS
+        self.comparison_prepositions = COMPARISON_PREPOSITIONS
+        self.comparison_reference_terms = COMPARISON_REFERENCE_TERMS
+        self.literature_terms = LITERATURE_TERMS
+        self.contribution_terms = CONTRIBUTION_TERMS
     
     def tokenize_sentences(self, text):
         """Sentence tokenization using NLTK with fallback to spaCy"""
@@ -58,13 +70,9 @@ class AnalyzerService:
         # Check for comparison verbs and their subjects/objects
         for token in doc:
             # Check if the verb is a comparison verb
-            if token.lemma_.lower() in self.comparison_verbs:
-                # Look for subjects or objects that indicate research comparison
-                research_terms = ["study", "research", "paper", "work", "finding", "result", 
-                                 "approach", "method", "literature", "previous", "prior", "existing"]
-                
+            if token.lemma_.lower() in self.comparison_verbs:                
                 # Check if any child of the verb contains research terms
-                has_research_subject = any(child.text.lower() in research_terms for child in token.children)
+                has_research_subject = any(child.text.lower() in self.research_terms for child in token.children)
                 
                 # If we found a comparison verb with research-related subjects
                 if has_research_subject:
@@ -75,20 +83,19 @@ class AnalyzerService:
                 objects = [child for child in token.children if child.dep_ in ("dobj", "pobj")]
                 
                 # Check if "our" or "this" study is compared to others
-                if any(subj.text.lower() in ["our", "this", "the", "these"] for subj in subjects):
-                    if any(obj.text.lower() in research_terms for obj in objects):
+                if any(subj.text.lower() in self.ownership_terms for subj in subjects):
+                    if any(obj.text.lower() in self.research_terms for obj in objects):
                         return True
         
         # Look for comparison structures using dependency parsing
         for token in doc:
             # Find prepositions that often indicate comparison
-            if token.text.lower() in ["like", "unlike", "as", "than"]:
-                if any(child.text.lower() in ["previous", "prior", "existing", "other"] for child in token.children):
+            if token.text.lower() in self.comparison_prepositions:
+                if any(child.text.lower() in self.comparison_reference_terms for child in token.children):
                     return True
         
         # Check for structures indicating reference to literature
-        literature_terms = ["literature", "studies", "research", "researchers", "papers", "findings"]
-        if any(token.text.lower() in literature_terms for token in doc):
+        if any(token.text.lower() in self.literature_terms for token in doc):
             return True
             
         return False
@@ -96,9 +103,6 @@ class AnalyzerService:
     def semantic_analysis_for_contribution(self, sentence):
         """Use spaCy for semantic analysis of potential contribution statements"""
         doc = self.nlp(sentence)
-        
-        # Check for ownership terms followed by contribution verbs
-        ownership_terms = ["our", "this", "the study", "the paper", "the research", "we"]
         
         # Check for contribution verbs and their subjects
         for token in doc:
@@ -109,24 +113,19 @@ class AnalyzerService:
                     if child.dep_ in ("nsubj", "nsubjpass"):
                         # Check if the subject or its children contain ownership terms
                         subject_text = child.text.lower()
-                        if any(term in subject_text for term in ownership_terms):
+                        if any(term in subject_text for term in self.ownership_terms):
                             return True
                         
                         # Check if "paper", "study", "research", "work" is the subject
-                        research_terms = ["paper", "study", "research", "work", "finding", "analysis"]
-                        if subject_text in research_terms:
+                        if subject_text in self.research_terms:
                             # Check for determiners like "this", "our"
                             for det in child.children:
                                 if det.dep_ == "det" and det.text.lower() in ["this", "our", "the"]:
                                     return True
-        
-        # Look for explicit contribution phrases
-        contribution_terms = ["contribution", "advancement", "innovation", "novel", "new", 
-                             "significant", "important", "key", "major", "primary", "main"]
-        
+                
         # Check if any contribution terms appear in possessive constructions with ownership terms
         for token in doc:
-            if token.text.lower() in contribution_terms:
+            if token.text.lower() in self.contribution_terms:
                 # Check if there's an ownership term with possessive relation
                 has_ownership = False
                 for child in token.children:

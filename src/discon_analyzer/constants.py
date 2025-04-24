@@ -94,6 +94,17 @@ CITATION_PATTERNS = [
     r'[A-Z][a-z]+ et al\.?'   # Captures "Smith et al."
 ]
 
+# ...existing code...
+
+# Comparison prepositions that often indicate comparison
+COMPARISON_PREPOSITIONS = ["like", "unlike", "as", "than"]
+
+# Terms that indicate different kinds of research or prior work
+COMPARISON_REFERENCE_TERMS = ["previous", "prior", "existing", "other"]
+
+# Terms that indicate reference to academic literature
+LITERATURE_TERMS = ["literature", "studies", "research", "researchers", "papers", "findings"]
+
 # Define semantic patterns for contribution claims
 CONTRIBUTION_VERBS = [
     # Original verbs
@@ -128,6 +139,11 @@ CONTRIBUTION_VERBS = [
     "challenge assumptions about", "deepen knowledge of", "catalyze research on"
 ]
 
+CONTRIBUTION_TERMS = [
+    "contribution", "advancement", "innovation", "novel", "new",
+    "significant", "important", "key", "major", "primary", "main"
+]
+
 # Define semantic patterns for comparison with prior research
 COMPARISON_VERBS = [
     # Original verbs
@@ -160,3 +176,11 @@ COMPARISON_VERBS = [
     "adapt methodology from", "extend theoretical approach of", "enhance model proposed by",
     "reconsider assumptions of", "revisit conclusions drawn by", "reassess evidence from"
 ]
+
+RESEARCH_TERMS = [
+    "study", "research", "paper", "work", "finding", "result",
+    "approach", "method", "literature", "previous", "prior", "existing"
+]
+
+# Ownership terms for semantic analysis
+OWNERSHIP_TERMS = ["our", "this", "the", "these"]

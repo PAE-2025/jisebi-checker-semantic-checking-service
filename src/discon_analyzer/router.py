@@ -6,7 +6,7 @@ from src.config import settings
 
 router = APIRouter(
     prefix=f"{settings.API_PREFIX}/discon-analyzer",
-    tags=["analyzer"],
+    tags=["Discon Analyzer"],
     responses={404: {"description": "Not found"}},
 )
 
