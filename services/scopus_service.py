@@ -7,7 +7,7 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from config import SCOPUS_API_KEY
+from src.config import SCOPUS_API_KEY
 from bs4 import BeautifulSoup
 
 
@@ -18,7 +18,7 @@ class ScopusSearch:
 
         # Inisialisasi WebDriver hanya sekali
         chrome_options = Options()
-        # chrome_options.add_argument("--headless=new")  # Mode tanpa GUI
+        chrome_options.add_argument("--headless=new")  # Mode tanpa GUI
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
         chrome_options.add_argument("--disable-blink-features=AutomationControlled")
