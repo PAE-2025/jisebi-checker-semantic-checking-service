@@ -1,9 +1,14 @@
 from fastapi import APIRouter
-from transformers import pipeline
+from transformers import AutoTokenizer, AutoModelForTokenClassification, pipeline
 
 router = APIRouter()
 
-ner_model = pipeline("ner")
+model_name = "dslim/bert-base-NER"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForTokenClassification.from_pretrained(model_name)
+
+ner_model = pipeline("ner", model=model, tokenizer=tokenizer)
+text = "Microsoft is headquartered in Redmond."
 
 def merge_tokens(tokens):
     merged_tokens = []
