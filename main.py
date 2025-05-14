@@ -14,7 +14,9 @@ app.include_router(grammar_router, prefix="/api/grammar", tags=["Grammar"])
 
 @app.get("/")
 async def root():
+
     return {
         "message": "Welcome to the Journal Search API", 
         "docs" : "/docs"
     }
+

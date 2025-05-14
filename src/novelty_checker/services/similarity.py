@@ -6,22 +6,8 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from collections import Counter
 
-try:
-    nltk.data.find("corpora/stopwords")
-except LookupError:
-    nltk.download("stopwords")
-
-try:
-    nltk.data.find("corpora/wordnet")
-except LookupError:
-    nltk.download("wordnet")
-
-try:
-    nltk.data.find("tokenizers/punkt")
-except LookupError:
-    nltk.download("stopwords")
-
-stop_words = set(stopwords.words("english"))
+nltk.download("punkt")
+nltk.download("stopwords")
 
 def preprocess_text(text):
     """ Membersihkan teks dengan tokenisasi, stopwords removal, dan stemming """
