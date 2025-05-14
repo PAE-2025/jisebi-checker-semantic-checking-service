@@ -8,9 +8,21 @@ from collections import Counter
 import nltk
 import re
 
-nltk.download('stopwords')
-nltk.download('punkt')
-nltk.download("wordnet")
+try:
+    nltk.data.find("corpora/stopwords")
+except LookupError:
+    nltk.download("stopwords")
+
+try:
+    nltk.data.find("corpora/wordnet")
+except LookupError:
+    nltk.download("wordnet")
+
+try:
+    nltk.data.find("tokenizers/punkt")
+except LookupError:
+    nltk.download("stopwords")
+
 stop_words = set(stopwords.words("english"))
 
 def preprocess_text(text: str) -> str:

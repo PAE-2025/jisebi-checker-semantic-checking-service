@@ -5,12 +5,13 @@ from src.discon_analyzer.dependencies import get_analyzer_service
 from src.config import settings
 
 router = APIRouter(
-    prefix=f"{settings.API_PREFIX}/discon-analyzer",
-    tags=["Discon Analyzer"],
     responses={404: {"description": "Not found"}},
 )
 
-@router.post("/analyze-paper", response_model=PaperAnalysisResponse)
+@router.post(
+    "/analyze-paper", 
+    response_model=PaperAnalysisResponse
+)
 async def analyze_paper(
     paper: PaperInput,
     analyzer_service: AnalyzerService = Depends(get_analyzer_service)
@@ -20,8 +21,6 @@ async def analyze_paper(
     """
     try:
         result = analyzer_service.analyze_paper({
-            "id": paper.id,
-            "title": paper.title,
             "discussion": paper.discussion,
             "conclusion": paper.conclusion
         })

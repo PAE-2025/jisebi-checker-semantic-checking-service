@@ -249,9 +249,7 @@ class AnalyzerService:
     
     def analyze_paper(self, paper):
         """Analyze a single paper's discussion and conclusion sections"""
-        paper_id = paper.get("id", "unknown")
-        paper_title = paper.get("title", "Untitled")
-        
+
         has_comparison = False
         has_contribution = False
         comparison_count = 0
@@ -274,8 +272,6 @@ class AnalyzerService:
             contribution_sentences = contributions
         
         return {
-            "id": paper_id,
-            "title": paper_title,
             "has_comparison": has_comparison,
             "has_contribution": has_contribution,
             "comparison_count": comparison_count,

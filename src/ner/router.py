@@ -8,7 +8,7 @@ router = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
-@router.post("/ner", response_model=NERResponse)
+@router.post("/analyze", response_model=NERResponse)
 async def recognize_entities(payload: NERRequest):
     entities = run_ner(payload.text)
     return {"text": payload.text, "entities": entities}

@@ -2,8 +2,6 @@ from pydantic import BaseModel, Field
 from typing import List, Optional
 
 class PaperInput(BaseModel):
-    id: str = Field(..., description="Unique identifier for the paper")
-    title: str = Field(..., description="Title of the paper")
     discussion: Optional[str] = Field(None, description="Discussion section text")
     conclusion: Optional[str] = Field(None, description="Conclusion section text")
     
@@ -28,8 +26,6 @@ class ContributionResult(BaseModel):
     contribution_sentences: List[str] = Field(..., description="List of contribution claims")
 
 class PaperAnalysisResponse(BaseModel):
-    id: str = Field(..., description="Unique identifier for the paper")
-    title: str = Field(..., description="Title of the paper")
     has_comparison: bool = Field(..., description="Whether the paper has comparison statements")
     has_contribution: bool = Field(..., description="Whether the paper has contribution claims")
     comparison_count: int = Field(..., description="Number of comparison statements found")
