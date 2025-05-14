@@ -13,7 +13,9 @@ app.include_router(ner_router, prefix="/api")
 
 @app.get("/")
 async def root():
+
     return {
         "message": "Welcome to the Journal Search API", 
         "docs" : "/docs"
         }
+

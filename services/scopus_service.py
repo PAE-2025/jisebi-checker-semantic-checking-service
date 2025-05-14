@@ -18,7 +18,7 @@ class ScopusSearch:
 
         # Inisialisasi WebDriver hanya sekali
         chrome_options = Options()
-        # chrome_options.add_argument("--headless=new")  # Mode tanpa GUI
+        chrome_options.add_argument("--headless=new")  # Mode tanpa GUI
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
         chrome_options.add_argument("--disable-blink-features=AutomationControlled")
