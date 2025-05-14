@@ -1,7 +1,11 @@
 # src/ner/service.py
-from transformers import pipeline
+from transformers import AutoTokenizer, AutoModelForTokenClassification, pipeline
 
-ner_model = pipeline("ner")
+model_name = "dslim/bert-base-NER"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForTokenClassification.from_pretrained(model_name)
+
+ner_model = pipeline("ner", model=model, tokenizer=tokenizer)
 
 def merge_tokens(tokens):
     merged_tokens = []
