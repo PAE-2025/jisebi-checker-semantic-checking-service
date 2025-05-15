@@ -23,6 +23,7 @@ wheels/
 
 # Virtual Environment
 venv/
+venv*/
 venv311/
 env/
 ENV/
@@ -91,5 +92,3 @@ Thumbs.db
 
 # Docker
 .dockerignore
-Dockerfile
-docker-compose.yml
