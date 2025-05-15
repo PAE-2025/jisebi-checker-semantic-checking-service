@@ -11,6 +11,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Download spaCy model
 RUN python -m spacy download en_core_web_sm
 
+# Download ML Models
+RUN python -c "from transformers import AutoModelForTokenClassification; AutoModelForTokenClassification.from_pretrained('dslim/bert-base-NER', cache_dir='/app/model_cache')"
+RUN python -c "from transformers import T5ForConditionalGeneration; T5ForConditionalGeneration.from_pretrained('grammarly/coedit-large', cache_dir='/app/model_cache')"
+
+ENV TRANSFORMERS_CACHE=/app/model_cache
+
 # Copy the FastAPI app files
 COPY . .
 
