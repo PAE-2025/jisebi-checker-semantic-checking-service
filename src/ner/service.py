@@ -1,6 +1,8 @@
 # src/ner/service.py
 from transformers import AutoTokenizer, AutoModelForTokenClassification, pipeline
+import transformers.utils
 
+transformers.utils.move_cache()
 model_name = "dslim/bert-base-NER"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForTokenClassification.from_pretrained(model_name)

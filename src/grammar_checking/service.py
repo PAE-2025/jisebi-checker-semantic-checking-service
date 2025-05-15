@@ -1,6 +1,9 @@
 import difflib
 from transformers import AutoTokenizer, T5ForConditionalGeneration
+import transformers.utils
 from typing import Dict, List, Union
+
+transformers.utils.move_cache()
 
 # Inisialisasi model dan tokenizer Grammarly
 tokenizer = AutoTokenizer.from_pretrained("grammarly/coedit-large")
