@@ -1,11 +1,11 @@
 # src/ner/service.py
 from transformers import AutoTokenizer, AutoModelForTokenClassification, pipeline
-import transformers.utils
+import torch
 
-transformers.utils.move_cache()
 model_name = "dslim/bert-base-NER"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForTokenClassification.from_pretrained(model_name)
+model = AutoModelForTokenClassification.from_pretrained(model_name, low_cpu_mem_usage=True, torch_dtype=torch.float16)
+model.eval()
 
 ner_model = pipeline("ner", model=model, tokenizer=tokenizer)
 

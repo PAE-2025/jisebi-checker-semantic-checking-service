@@ -2,12 +2,14 @@ import difflib
 from transformers import AutoTokenizer, T5ForConditionalGeneration
 import transformers.utils
 from typing import Dict, List, Union
+import torch
 
 transformers.utils.move_cache()
 
 # Inisialisasi model dan tokenizer Grammarly
-tokenizer = AutoTokenizer.from_pretrained("grammarly/coedit-large")
-model = T5ForConditionalGeneration.from_pretrained("grammarly/coedit-large")
+tokenizer = AutoTokenizer.from_pretrained("vennify/t5-base-grammar-correction")
+model = T5ForConditionalGeneration.from_pretrained("vennify/t5-base-grammar-correction", low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="auto")
+model.eval()
 
 async def process_text(text: Union[str, List[str]]) -> Dict[str, any]:
 
