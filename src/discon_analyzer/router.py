@@ -2,7 +2,6 @@ from fastapi import APIRouter, HTTPException, Depends
 from src.discon_analyzer.schemas import PaperInput, PaperAnalysisResponse
 from src.discon_analyzer.service import AnalyzerService
 from src.discon_analyzer.dependencies import get_analyzer_service
-from src.config import settings
 
 router = APIRouter(
     responses={404: {"description": "Not found"}},
