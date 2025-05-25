@@ -7,7 +7,6 @@ router = APIRouter()
 
 @router.post(
     "/process-text",
-    response_model=TextOutput,
     status_code=status.HTTP_200_OK,
     description="Process text for grammar correction and typo detection with underlined typos",
     summary="Grammar Check and Typo Detection"

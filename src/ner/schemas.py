@@ -1,9 +1,9 @@
 # src/ner/schemas.py
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List, Optional, Union
 
 class NERRequest(BaseModel):
-    text: str
+    text: Union[List[str], str]
 
 class Entity(BaseModel):
     entity: str

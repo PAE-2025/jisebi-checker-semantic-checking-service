@@ -23,7 +23,21 @@ def merge_tokens(tokens):
     return merged_tokens
 
 def run_ner(text: str):
-    output = ner_model(text)
-    for entity in output:
-        entity["score"] = float(entity["score"])
-    return merge_tokens(output)
+
+    if isinstance(text, str):
+        output = ner_model(text)
+
+        for entity in output:
+            entity["score"] = float(entity["score"])
+        return merge_tokens(output)
+        
+    elif isinstance(text, list):
+        results = []
+        for element in text:
+            output = ner_model(element)
+
+            for entity in output:
+                entity["score"] = float(entity["score"])
+            
+            results.append(merge_tokens(output))
+        return results
