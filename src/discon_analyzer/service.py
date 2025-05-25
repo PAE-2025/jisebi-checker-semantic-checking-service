@@ -25,7 +25,8 @@ class AnalyzerService:
         
         # Try to download NLTK data (for better sentence tokenization)
         try:
-            nltk.download('punkt', quiet=True)
+            pass
+            # nltk.download('punkt', quiet=True)
         except:
             print("Warning: NLTK punkt download failed. Falling back to spaCy sentence tokenization.")
         

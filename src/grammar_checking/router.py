@@ -6,7 +6,7 @@ from src.grammar_checking.service import process_text
 router = APIRouter()
 
 @router.post(
-    "/process-text/",
+    "/process-text",
     response_model=TextOutput,
     status_code=status.HTTP_200_OK,
     description="Process text for grammar correction and typo detection with underlined typos",

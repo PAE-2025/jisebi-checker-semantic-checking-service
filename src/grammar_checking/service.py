@@ -7,8 +7,8 @@ import torch
 transformers.utils.move_cache()
 
 # Inisialisasi model dan tokenizer Grammarly
-tokenizer = AutoTokenizer.from_pretrained("vennify/t5-base-grammar-correction")
-model = T5ForConditionalGeneration.from_pretrained("vennify/t5-base-grammar-correction", low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="auto")
+tokenizer = AutoTokenizer.from_pretrained("vennify/t5-base-grammar-correction", cache_dir="/app/model_cache")
+model = T5ForConditionalGeneration.from_pretrained("vennify/t5-base-grammar-correction", low_cpu_mem_usage=True, torch_dtype=torch.float16, device_map="auto", cache_dir="/app/model_cache")
 model.eval()
 
 async def process_text(text: Union[str, List[str]]) -> Dict[str, any]:

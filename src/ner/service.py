@@ -3,8 +3,8 @@ from transformers import AutoTokenizer, AutoModelForTokenClassification, pipelin
 import torch
 
 model_name = "dslim/bert-base-NER"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForTokenClassification.from_pretrained(model_name, low_cpu_mem_usage=True, torch_dtype=torch.float16)
+tokenizer = AutoTokenizer.from_pretrained(model_name, cache_dir="/app/model_cache")
+model = AutoModelForTokenClassification.from_pretrained(model_name, low_cpu_mem_usage=True, torch_dtype=torch.float16, cache_dir="/app/model_cache")
 model.eval()
 
 ner_model = pipeline("ner", model=model, tokenizer=tokenizer)
