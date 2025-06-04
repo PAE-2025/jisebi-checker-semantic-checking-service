@@ -22,10 +22,13 @@ class CrossRefSearch:
             doi = item.get("DOI", "")
             abstract = item.get("abstract", "")
 
+            url = f"https://doi.org/{doi}" if doi else ""
+
             journal_results.append({
                 "doi": doi,
                 "title": title,
-                "abstract": abstract
+                "abstract": abstract,
+                "url": url
             })
 
         return journal_results

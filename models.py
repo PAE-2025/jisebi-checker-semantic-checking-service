@@ -9,6 +9,7 @@ class JournalResult(BaseModel):
     doi: str
     title: str
     abstract: str
+    url: str
     similarity: float
     common_keywords: List[str]
 
