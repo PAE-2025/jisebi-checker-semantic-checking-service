@@ -28,7 +28,6 @@ async def input_article(article: ArticleInput):
 
     # Respons JSON
     response = {
-        "title": article.title,
         "keyword_results": keyword_results,
         "nlp_result": results,
         "common_keywords": common_keywords,
